@@ -6,52 +6,97 @@ public class Game {
     char[][] board; 
 
     String column, row;
+    char currentPlayer;
 
     public Game(){
         locationMap = new HashMap<>();
-        board = new char[][]{{'-','-','-'},{'-','-','-'},{'-','-','-'}};
 
         locationMap.put("left",0);
         locationMap.put("top",0);
         locationMap.put("middle", 1);
         locationMap.put("right",2);
-        locationMap.put("bottom", 1);
+        locationMap.put("bottom", 2);
 
-        displayBoard();
-        promptForInput("column");
-        promptForInput("row");
+        board = new char[][]{{'-','-','-'},
+                             {'-','-','-'},
+                             {'-','-','-'}};
+
+        boolean gameOver = false;
+        int turnCount = 0;
+
+        char playerOne = 'x';
+        char playerTwo = 'o';
+        
+        boolean activePlayer = true;
+
+
+        while(!gameOver){
+            turnCount++;
+            
+            currentPlayer = activePlayer ? playerOne : playerTwo;
+
+            
+
+            boolean validPosition = false;
+            
+            while(!validPosition) {
+                displayBoard();
+                int[] playerPositionChoice = getPlayerPositionChoice();
+                validPosition = updateBoard(playerPositionChoice[1],playerPositionChoice[0]);
+            }
+
+           
+            
+                        
+
+
+            activePlayer = !activePlayer;
+        }
+
+
 
     }
 
     /** prompts for the users to select the cordinates on the game board using plain english
      * @param type takes in a string of "row" or "column" to specifify qhich question to ask
      */
-    private void promptForInput(String type){
-        Scanner input = new Scanner(System.in);
-        String inputWord;
+    private int[] getPlayerPositionChoice(){
+        Scanner in = new Scanner(System.in);
+        String input;
 
-        String rowQuestion = "Select column (Left, Middle, Right): ";
-        String columnQuestion = "Select column (Top, Middle, Bottom): ";
-        String question = type.equals("row") ? rowQuestion : columnQuestion;
+        int[] PlayerBoardPostion = new int[2];
 
-        do {
-            System.out.print(question);
-            inputWord = input.next().toLowerCase();
+        boolean validInput = false;
 
-            if(locationMap.get(inputWord) == null) {
-                System.out.println("Invalid entry please try again!");
-            } else {
-                 if(type.equals("row")) {
-                    row = inputWord;
-                    
-                 } else {
-                    column = inputWord;
-                    
-                 }
+        while(!validInput) {
+            System.out.print("Please choose column (Left, Middle, Right): ");
+            input = in.next().toLowerCase();
+
+            if(input.equals("left") || input.equals("middle") || input.equals("right")) {
+                validInput = true;
+                PlayerBoardPostion[0] = locationMap.get(input);
+                break;
             }
-        } while (locationMap.get(inputWord) == null);
 
+            System.out.println("Invalid entry, please try again!");
+        }
 
+        validInput = false;
+
+        while(!validInput) {
+            System.out.print("Please choose row (Top, Middle, Bottom): ");
+            input = in.next().toLowerCase();
+
+            if(input.equals("top") || input.equals("middle") || input.equals("bottom")) {
+                validInput = true;
+                PlayerBoardPostion[1] = locationMap.get(input);
+                break;
+            }
+
+            System.out.println("Invalid entry, please try again!");
+        }
+
+        return PlayerBoardPostion;
     }
 
     /** outputs the current state of the game board */
@@ -66,4 +111,17 @@ public class Game {
         }
     }
 
+    private boolean updateBoard(int column, int row){
+
+        if(board[column][row] == '-'){
+           
+            board[column][row] = currentPlayer;
+            return true;
+
+        }
+
+        System.out.println("Postion is already in use! Please Choose Again");
+        return false;
+
+    }
 }
