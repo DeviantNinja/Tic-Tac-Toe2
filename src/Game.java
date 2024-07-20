@@ -45,12 +45,16 @@ public class Game {
                 validPosition = updateBoard(playerPositionChoice[1],playerPositionChoice[0]);
             }
 
-           
+           if(checkWinner(board)){
+            System.out.println("winner winner!");
+           } else {
+            activePlayer = !activePlayer;
+           }
             
                         
 
 
-            activePlayer = !activePlayer;
+            
         }
 
 
@@ -123,5 +127,25 @@ public class Game {
         System.out.println("Postion is already in use! Please Choose Again");
         return false;
 
+    }
+
+    private boolean checkWinner(char[][] board){
+
+        for(int i = 0;i <3;i++) {
+            if(board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
+                return true;
+            }
+
+            if(board[0][i] == board[1][i] && board[1][i] == board[2][i]) {
+                return true;
+            }
+        }
+
+        if(board[0][0] == board[1][1] && board[1][1] == board[2][2] ||
+        board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
+            return true;
+        } 
+
+        return false;
     }
 }
