@@ -35,8 +35,6 @@ public class Game {
             
             currentPlayer = activePlayer ? playerOne : playerTwo;
 
-            
-
             boolean validPosition = false;
             
             while(!validPosition) {
@@ -45,20 +43,24 @@ public class Game {
                 validPosition = updateBoard(playerPositionChoice[1],playerPositionChoice[0]);
             }
 
-           if(checkWinner(board)){
-            System.out.println("winner winner!");
-           } else {
+
+
+            if(checkWinner(board)){
+                displayBoard();
+                gameOver = true;
+                System.out.println(currentPlayer + " is the winner!");
+                break;
+            } 
+
+            if(turnCount == 9) {
+                gameOver = true;
+                System.out.println("The game ended in a draw!");
+                break;
+            }
+            
             activePlayer = !activePlayer;
-           }
-            
-                        
 
-
-            
         }
-
-
-
     }
 
     /** prompts for the users to select the cordinates on the game board using plain english
@@ -133,18 +135,38 @@ public class Game {
 
         for(int i = 0;i <3;i++) {
             if(board[i][0] == board[i][1] && board[i][1] == board[i][2]) {
+                if(board[i][0] == '-' || board[i][1] == '-' || board[i][2] == '-' ){
+                    break;
+                } 
+                
                 return true;
             }
 
             if(board[0][i] == board[1][i] && board[1][i] == board[2][i]) {
+                if(board[0][i] == '-' || board[1][i] == '-' || board[2][i] == '-' ){
+                    break;
+                } 
+                
                 return true;
             }
+
         }
 
-        if(board[0][0] == board[1][1] && board[1][1] == board[2][2] ||
-        board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
+        if(board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+           if(board[0][0] == '-' || board[1][1] == '-'|| board[2][2] == '-'){
+                return false;
+           }
             return true;
         } 
+
+
+        if(board[2][0] == board[1][1] && board[1][1] == board[0][2]) {
+            if(board[2][0] == '-' || board[1][1] == '-'|| board[0][2] == '-'){
+                 return false;
+            }
+             return true;
+         } 
+
 
         return false;
     }
