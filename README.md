@@ -4,6 +4,10 @@ for now though I am going to move onto my next project i dont know what that is 
 
 I have alot to learn, but i tried, failed, failed better. I have no doubt there is a much more elegent solution to doing this and i will likely come back a and redo it in a few months once i've learned some more. 
 
-I think for version 2 i would like to clean up the code, and maybe try adding a graphical interface. 
+Follow up versions i would like to make
+v1. First Attempt - completed 21-07-2024
+v2. Improved Game Logic
+v3. Graphicical User Interface
+v4. Online Multiplayer
 
-completed 21-07-2024
+
