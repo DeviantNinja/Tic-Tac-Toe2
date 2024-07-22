@@ -7,7 +7,7 @@ I have alot to learn, but i tried, failed, failed better. I have no doubt there 
 Follow up versions i would like to make
 * v1. First Attempt - completed 21-07-2024
 * v2. Improved Game Logic
-* v3. Graphicical User Interface
+* v3. Graphical User Interface
 * v4. Online Multiplayer
 
 
